@@ -74,9 +74,9 @@
         $sau = $sau . "<option value='".$value["an"]."' $selected>".$value["an"]."</option>";
     }
 
-    $selector_year_for_show = $selector_year_for_show . $sau . "</select></td>
+    concate($selector_year_for_show, [$sau,"</select></td>
         <td><button type='submit' name='select_year'>Select</button></td>
-    </tr></table></form>";
+    </tr></table></form>"]);
 
     $group_list = get_json_contents("./grupe/".$_SESSION["per_year"].".json");
     $config_list = get_json_contents("./config.json");
@@ -238,6 +238,30 @@
         concate($selector_edit_group, [$selector_year_for_show, $div, $add_btn, $add_value]);
     }
 
+    //delete files
+
+    if(isset($_POST["delete_files"]) and $_POST["delete_files"] != ''){
+        $filename = $_POST["select_del_year"].".json";
+        
+        $path = "./grupe/"; $backup = "./backup/";
+
+        copy($path.$filename, $backup.$filename.".bak");        
+        unlink($path.$filename);
+    }
+
+    $del_form = "<form action='' method='POST'>";
+    $del_form_end = "</form>";
+    $del_submit_btn = "<button type='submit' name='delete_files' value='#'>Delete</button>";
+    $del_select_year = "<select class='selector_an' name='select_del_year' required>
+        <option value=''>Select year</option>";
+
+    foreach ($lista_ani as $key => $value) {
+        concate($del_select_year, "<option value='".$value["an"]."'>".$value["an"]."</option>");
+    }
+
+    concate($del_select_year, ["</select>", $del_submit_btn]);
+    concate($delete_files, [$del_form, $del_select_year, $del_form_end]);
+
 ?>
 
 <!DOCTYPE html>
@@ -258,7 +282,10 @@
             echo $selector_edit_group; 
 
             hr_text("Statistica si recomandarile per grupe");
-            echo $selector_an_universitar; 
+            echo $selector_an_universitar;
+
+            hr_text("Sterge raspunsurile per an de studiu si/sau grupa");
+            echo $delete_files;
         ?>
     </div>
 </body>
