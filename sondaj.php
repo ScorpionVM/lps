@@ -10,6 +10,7 @@
   if($_SERVER["REQUEST_METHOD"] == "POST"){
     $arrayName = $_SESSION["block_array"];
     $saveList = array();
+    $saveList["timestamp"] = utc_time("H:i:s", 't');
     foreach ($arrayName as $key => $value) {
       if($value['tag'] == 'input'){
         $post_value = $_POST[$value["name"]];

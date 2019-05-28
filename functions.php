@@ -50,20 +50,22 @@
     function get_data_per_grupa($quest, $option, $Array_grupe){
         $totals = 0; $lists = array();
         foreach ($Array_grupe as $key => $value) {
-            $lists[$key] = 0;
-            foreach ($value as $_key => $_value) {
-                foreach ($_value as $_1_key => $_1_value) {
-                    if($quest == $_1_key){
-                        if(gettype($_1_value) == 'string'){
-                            if($option == $_1_value){
-                                $lists[$key]++;
-                            }
-                        } else {
-                            if(is_array($_1_value)){
-                                foreach ($_1_value as $_2_value) {
-                                    if($option == $_2_value){
-                                        $lists[$key]++;
-                                        break;
+            if($key != "timestamp"){
+                $lists[$key] = 0;
+                foreach ($value as $_key => $_value) {
+                    foreach ($_value as $_1_key => $_1_value) {
+                        if($quest == $_1_key){
+                            if(gettype($_1_value) == 'string'){
+                                if($option == $_1_value){
+                                    $lists[$key]++;
+                                }
+                            } else {
+                                if(is_array($_1_value)){
+                                    foreach ($_1_value as $_2_value) {
+                                        if($option == $_2_value){
+                                            $lists[$key]++;
+                                            break;
+                                        }
                                     }
                                 }
                             }
