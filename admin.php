@@ -3,8 +3,7 @@
     session_unset();
 
     include "functions.php";
-
-    // header("Location: /constructor.php");
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         $newObj = get_json_contents('config.json', true);

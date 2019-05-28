@@ -57,6 +57,10 @@
         $table = 'Not found any data!';
     }
 
+    if(isset($_POST["back_to_const"])){
+        header("Location: /constructor.php");
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -72,9 +76,12 @@
     <div class="container" style="width: 80%">
         <h2 id="header">Admin panel :: <?= $_SESSION["admin_access"]; ?></h2>
         <h4 id='header' class='tcenter'>Anul universitar :: <?= $years; ?></h4><hr>
+        <form action='' method="POST">
+            <button type='submit' name='back_to_const'>Back</button>
+        </form>
         <?php echo $table; ?>
-        <form action='/constructor.php' method="POST">
-            <button type='submit'>Back</button>
+        <form action='' method="POST">
+            <button type='submit' name='back_to_const'>Back</button>
         </form>
     </div>
 </body>

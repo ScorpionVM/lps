@@ -6,6 +6,12 @@
         header("Location: /admin.php");
     }
 
+    if(isset($_POST["logout"]) and $_POST["logout"] != ''){
+        session_unset();
+        session_destroy();
+        header("Location: /admin.php");
+    }
+
     include 'functions.php';
 
     sort_config();
@@ -30,7 +36,15 @@
     $sau = '';
 
     foreach ($lista_ani as $key => $value) {
-        $sau = $sau . "<option value='".$value["path_file"]."'>".$value["an"]."</option>";
+        foreach ($_SESSION["year_data"] as $_key => $_value) {
+            if($value["an"] == $_value){
+                $selected_rs = "selected";
+            } else {
+                $selected_rs = '';
+            }    
+        }
+
+        concate($sau,"<option value='".$value["path_file"]."' $selected_rs>".$value["an"]."</option>");
     }
 
     $selector_an_universitar = $selector_an_universitar . $sau . "</select></td>
@@ -276,7 +290,12 @@
 </head>
 <body>
     <div class="container" style="width: 1000px">
-        <h2 id="header">Admin panel :: <?= $_SESSION["admin_access"]; ?></h2><hr size=5px>
+        <table style='width: 100%; table-layout: fixed;'>
+            <tr><td colspan=14><h2 id="header">Admin panel :: <?= $_SESSION["admin_access"]; ?></h2></td>
+                <td><form action='' method="POST">
+                    <button type='submit' name='logout' value='#'>Log out</button></form></td>
+            </tr>
+        </table><hr size=5px>
         <?php 
             hr_text("Adaugati si modificati lista de grupe per an de studiu");
             echo $selector_edit_group; 

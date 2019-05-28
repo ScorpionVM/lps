@@ -1,6 +1,8 @@
 <?php
   session_start();
   
+  include "functions.php";
+
   if(!isset($_SESSION["grupa"])){
     header("Location: /");
   }
@@ -32,8 +34,8 @@
     
     ksort($oldArr);
 
-    $oldObj = json_encode($oldArr, true);
-    file_put_contents($filename_t, $oldObj);
+    put_json_contents($filename_t, $oldArr);
+
     header("Location: /ty.php");
   }
 
