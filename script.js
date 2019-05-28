@@ -66,7 +66,7 @@ function contor(elem, ct) {
 
 function redirect_to_mainpage(x){
     if(x == 0){
-        window.location.replace("http://localhost:10256/index.php")
+        window.location.replace("http://lps.epizy.com/")
     } else {
         document.getElementById("timeleft").innerHTML = x;
         setTimeout(redirect_to_mainpage, 992, [x-1]);

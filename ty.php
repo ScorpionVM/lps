@@ -1,11 +1,8 @@
 <?php
   session_start();
 
-  if(!isset($_POST["send_answer"])){
-    session_destroy();
-    header("Location: /");
-  }
-  
+  session_unset();
+  session_destroy();
 ?>
 
 <!DOCTYPE html>
